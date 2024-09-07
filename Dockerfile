@@ -1,27 +1,35 @@
 # Stage 1: Build the Angular app
 FROM node:20-alpine AS build
 
+# Set the working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the Angular project files
 COPY . .
 
-RUN npm install -g @angular/cli@16.2.12
-RUN npm uninstall atq
-RUN npm install --legacy-peer-deps --no-package-lock
+# Build the Angular app
+RUN npm run build --prod
 
-# Pass the build number as an environment variable
-ARG BUILD_NO
-ENV BUILD_NO=$BUILD_NO
+# Stage 2: Serve the app with Nginx
+FROM nginx:alpine
 
-RUN npm run prebuild
-RUN npm run build -- --configuration=production
+# Copy the custom nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-WORKDIR /app/dist/atq
+# Remove the default Nginx HTML directory
+RUN rm -rf /usr/share/nginx/html/*
 
-# Stage 2: Serve the Angular app using Nginx
-FROM nginx:latest
+# Copy the built Angular files from Stage 1
+COPY --from=build /app/dist/angular-ui-app /usr/share/nginx/html
 
-COPY --from=build /app/dist/atq /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+# Expose port 80
 EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]

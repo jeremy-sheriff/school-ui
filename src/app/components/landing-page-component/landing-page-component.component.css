@@ -1,0 +1,70 @@
+/* Style the landing area */
+.landing-area {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #4a90e2; /* Soft blue background */
+  color: white; /* White text for contrast */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.landing-area h1 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.landing-area p {
+  font-size: 20px;
+  color: #e0e0e0; /* Slightly lighter text color */
+}
+
+/* Style the table container */
+.table-container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1000px; /* Set a maximum width for the table container */
+  background-color: #ffffff; /* White background for the table */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px;
+}
+
+/* Table row hover effect */
+p-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+p-table tbody tr:hover {
+  background-color: #f1f8ff; /* Light blue on hover */
+}
+
+/* Table striped rows */
+p-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Center table text */
+p-table th, p-table td {
+  text-align: center;
+  padding: 15px; /* Increased padding for better spacing */
+}
+
+/* Style the table header */
+p-table thead th {
+  background-color: #2a75c6; /* Darker blue for the header */
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase; /* Uppercase for headers */
+  letter-spacing: 1px; /* Slight letter spacing */
+}
+
+/* Add subtle borders to table cells */
+p-table th, p-table td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Add additional space around the paginator */
+p-paginator {
+  margin-top: 20px;
+}
