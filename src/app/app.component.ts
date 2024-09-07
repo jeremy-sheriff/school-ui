@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   constructor(private keycloakService: KeycloakService, private router: Router) {}
 
   async ngOnInit() {
-    this.isAuthenticated = await this.keycloakService.isLoggedIn();
+    this.isAuthenticated = this.keycloakService.isLoggedIn();
 
     console.log("Authenticated = " + this.isAuthenticated);
   }
