@@ -6,8 +6,8 @@ import {LandingPageComponentComponent} from "./components/landing-page-component
 
 export const routes: Routes = [
   {
-    path: 'landing',
-    component: LandingPageComponentComponent,
+    path: '/',
+    component: AppComponent,
     canActivate: [AuthGuard]  // Protect this route with the AuthGuard
   }
 ];

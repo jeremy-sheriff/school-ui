@@ -1,7 +1,7 @@
 #!/bin/bash
-version="1.0.2"
-docker build --platform linux/amd64 -t muhohoweb/school-ui:$version . &&
+version="1.0.3"
+docker build --platform linux/amd64 -t muhohoweb/school-ui:$version .
 
-docker push muhohoweb/school-ui:$version &&
+docker push muhohoweb/school-ui:$version
 
 git add . && git commit -m "Build 1.0.1" && git push origin main
