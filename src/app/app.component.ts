@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
-import {Router, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {OnInit } from '@angular/core';
 import {NgIf} from "@angular/common";
 
@@ -10,7 +10,8 @@ import {NgIf} from "@angular/common";
   templateUrl: './app.component.html',
   imports: [
     NgIf,
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   styleUrl: './app.component.css'
 })

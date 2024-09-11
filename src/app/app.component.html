@@ -3,19 +3,22 @@
   <aside class="sidebar">
     <nav class="nav">
       <ul>
-        <li><a routerLink="/home">Home</a></li>
-        <li><a routerLink="/students">Students</a></li>
-        <li><a routerLink="/library">Library</a></li>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="students">Students</a></li>
+        <li><a routerLink="library">Library</a></li>
       </ul>
     </nav>
+
+    <!-- Logout button placed at the bottom of the sidebar -->
+    <div class="logout-section">
+      <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+    </div>
   </aside>
 
   <!-- Content Area -->
   <div class="content">
     <header class="header">
       <h1>Welcome to the Dashboard</h1>
-      <!-- Logout button will be shown only if authenticated -->
-      <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
     </header>
 
     <main class="main-content">
