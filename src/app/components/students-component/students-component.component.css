@@ -1,0 +1,58 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust height based on your layout */
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db; /* Change the color as you prefer */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1.1em;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.students-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.students-table th,
+.students-table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+.students-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.students-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.students-table tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}

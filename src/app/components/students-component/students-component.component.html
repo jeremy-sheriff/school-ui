@@ -1,11 +1,27 @@
-<div *ngIf="students.length > 0; else noData">
+<div *ngIf="loading" class="loader-container">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading && students.length > 0; else noData">
   <h2>Students List</h2>
-  <ul>
-    <li *ngFor="let student of students">
-      {{ student.name }} ({{ student.age }} years old)
-      <!-- Adjust fields based on your API response -->
-    </li>
-  </ul>
+  <table class="students-table">
+    <thead>
+    <tr>
+      <th>#</th> <!-- Index column -->
+      <th>Name</th>
+      <th>Admission Number</th>
+      <!-- Add more columns as per your API response -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of students; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ student.name }}</td>
+      <td>{{ student.admNo }}</td>
+      <!-- Add more fields as per your API response -->
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <ng-template #noData>
