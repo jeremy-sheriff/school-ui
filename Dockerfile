@@ -27,7 +27,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built Angular files from Stage 1
 COPY --from=build /app/dist/angular-ui-app /usr/share/nginx/html
-RUN mkdir "dirname"
 COPY src/assets/silent-check-sso.html /usr/share/nginx/html/browser
 
 # Expose port 80
