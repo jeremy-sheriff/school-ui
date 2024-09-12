@@ -27,7 +27,8 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built Angular files from Stage 1
 COPY --from=build /app/dist/angular-ui-app /usr/share/nginx/html
-COPY src/assets/silent-check-sso.html /usr/share/nginx/html/browser
+RUN mkdir "assets"
+COPY src/assets/silent-check-sso.html /usr/share/nginx/html/browser/assets
 
 # Expose port 80
 EXPOSE 80
