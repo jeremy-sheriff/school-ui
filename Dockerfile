@@ -23,12 +23,12 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Remove the default Nginx HTML directory
-RUN rm -rf /usr/share/nginx/html/*
+#RUN #rm -rf /usr/share/nginx/html/*
 
 # Copy the built Angular files from Stage 1
 COPY --from=build /app/dist/angular-ui-app /usr/share/nginx/html
-RUN mkdir assets
-COPY src/assets/silent-check-sso.html /usr/share/nginx/html/browser/assets
+RUN mkdir "dirname"
+COPY src/assets/silent-check-sso.html /usr/share/nginx/html/browser
 
 # Expose port 80
 EXPOSE 80
