@@ -21,11 +21,11 @@ export const routes: Routes = [
   {
     path: 'library',
     component: LibraryComponentComponent,
-    canActivate: [MyAuthGuard], // Use the new guard
-    data: { roles: ['admin'] } // Example roles required
+    canActivate: [MyAuthGuard],
+    data: { roles: ['library_role'] }
   },
   {
     path: 'unauthorized',
-    component: UnauthorizedComponent // Define the route for the unauthorized page
+    component: UnauthorizedComponent
   },
 ];

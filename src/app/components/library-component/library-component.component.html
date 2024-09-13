@@ -1,1 +1,30 @@
-<p>library-component works!</p>
+<div *ngIf="loading" class="loader-container">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading && books.length > 0; else noData">
+  <h2>Books List</h2>
+  <table class="students-table">
+    <thead>
+    <tr>
+      <th>#</th> <!-- Index column -->
+      <th>Title</th>
+      <th>Author</th>
+      <!-- Add more columns as per your API response -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of books; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <!-- Add more fields as per your API response -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noData>
+  <p *ngIf="!errorMessage">No books available.</p>
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+</ng-template>
