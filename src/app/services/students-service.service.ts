@@ -23,9 +23,6 @@ export class StudentsServiceService {
           'Authorization': `Bearer ${token}`
         });
 
-        console.log("************ token **********");
-        console.log(token);
-
         // Make the HTTP GET request to the API
         this.http.get<any>(this.apiUrl, { headers }).subscribe(
           data => {
