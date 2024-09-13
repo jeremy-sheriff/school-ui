@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
   //
   logout() {
-    this.keycloakService.logout();
+    this.keycloakService.logout(window.location.origin + "/");
   }
 
 }
