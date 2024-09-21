@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {KeycloakService} from "keycloak-angular";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryService {
-  private apiUrl = 'https://muhohodev.com/api/library/books';
+  private apiUrl = environment.library_api_base_url+'/api/library/books';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
 

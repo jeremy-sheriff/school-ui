@@ -16,6 +16,11 @@ import {NgIf} from "@angular/common";
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
+  sidebarVisible: boolean = true;
+
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
 
   isAuthenticated = false;
 

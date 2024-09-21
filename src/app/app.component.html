@@ -1,6 +1,11 @@
 <div class="container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
+  <!-- Hamburger icon - visible only when the user is authenticated -->
+  <div class="hamburger" *ngIf="isAuthenticated" (click)="toggleSidebar()">
+    &#9776;
+  </div>
+
+  <!-- Sidebar - only visible when authenticated and sidebarVisible is true -->
+  <aside class="sidebar" *ngIf="isAuthenticated && sidebarVisible">
     <nav class="nav">
       <ul>
         <li><a routerLink="/">Home</a></li>
@@ -9,7 +14,7 @@
       </ul>
     </nav>
 
-    <!-- Logout button placed at the bottom of the sidebar -->
+    <!-- Logout button -->
     <div class="logout-section">
       <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
     </div>
@@ -17,10 +22,6 @@
 
   <!-- Content Area -->
   <div class="content">
-<!--    <header class="header">-->
-<!--      <h1>Welcome to the Dashboard</h1>-->
-<!--    </header>-->
-
     <main class="main-content">
       <router-outlet></router-outlet> <!-- This will load the routed components -->
     </main>

@@ -7,10 +7,8 @@ import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.comp
 
 export const routes: Routes = [
   {
-    path: 'landing',
-    component: LandingPageComponentComponent,
-    canActivate: [MyAuthGuard], // Use the new guard
-    data: { roles: ['admin', 'student'] } // Example roles required
+    path: '',
+    component: LandingPageComponentComponent
   },
   {
     path: 'students',

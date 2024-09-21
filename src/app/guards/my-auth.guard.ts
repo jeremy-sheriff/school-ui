@@ -37,6 +37,7 @@ export class MyAuthGuard implements CanActivate {
     // Step 2: Check for required roles
     const requiredRoles = route.data['roles'] as string[];
     const userRoles = this.keycloak.getUserRoles();
+    console.log(userRoles)
 
     // If roles are specified in the route and the user doesn't have the required roles, redirect to unauthorized
     if (requiredRoles && !requiredRoles.every(role => userRoles.includes(role))) {

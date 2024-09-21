@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentsServiceService {
 
-  private apiUrl = 'https://muhohodev.com/api/students/all';
+  private apiUrl = environment.students_api_base_url+'/api/students/all';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
 

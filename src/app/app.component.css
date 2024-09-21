@@ -1,29 +1,19 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Container for both sidebar and content */
 .container {
   display: flex;
-  min-height: 100vh;  /* Full height for the layout */
-  background-color: #eef2f7;  /* Light background color */
-  font-family: 'Arial', sans-serif; /* Use a modern sans-serif font */
+  min-height: 100vh;
+  background-color: #eef2f7;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Sidebar styles */
 .sidebar {
-  width: 250px;       /* Sidebar width */
-  background-color: #34495e;  /* Dark blue-gray sidebar background */
+  width: 250px;
+  background-color: #34495e;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .nav ul {
@@ -40,84 +30,60 @@
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
-  display: block;
   padding: 10px 15px;
+  display: block;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .nav ul li a:hover {
-  background-color: #1abc9c;  /* Change link hover to a teal green color */
+  background-color: #1abc9c;
   color: #fff;
 }
 
-/* Logout section */
 .logout-section {
-  padding-top: 30px;
+  margin-top: auto;
 }
 
 .logout-section button {
   background-color: #e74c3c;
-  border: none;
-  padding: 12px 20px;
   color: #fff;
+  border: none;
+  padding: 10px 15px;
+  width: 100%;
   font-size: 16px;
   border-radius: 6px;
-  width: 100%;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.logout-section button:hover {
-  background-color: #c0392b;
-}
-
-/* Content area */
 .content {
   flex-grow: 1;
-  margin-left: 250px; /* To create space for the sidebar */
-  padding: 30px;
+  margin-left: 250px; /* Space for the sidebar */
+  padding: 20px;
   background-color: #fff;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #3498db;  /* Header background */
-  color: #fff;
-  padding: 15px 30px;
-  border-radius: 4px;
-  margin-bottom: 25px;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-/* Main content area */
-.main-content {
-  padding: 20px;
-  background-color: #ecf0f1;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive design for small screens */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
-    height: auto;
-    position: relative;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-visible {
+    transform: translateX(0);
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 30px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
   }
 
   .content {
     margin-left: 0;
-  }
-
-  .logout-section {
-    padding-top: 15px;
   }
 }
