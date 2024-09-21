@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {KeycloakEventType, KeycloakService} from "keycloak-angular";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {OnInit } from '@angular/core';
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
+import {BreadcrumbsComponent} from "./components/breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-component',
@@ -11,16 +12,16 @@ import {NgIf} from "@angular/common";
   imports: [
     NgIf,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    BreadcrumbsComponent,
+    NgClass
   ],
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   sidebarVisible: boolean = true;
+  isSubMenuVisible: boolean = true;
 
-  toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
-  }
 
   isAuthenticated = false;
 
@@ -55,6 +56,16 @@ export class AppComponent implements OnInit {
     await this.keycloakService.login({
       redirectUri: window.location.origin + '/landing'  // Redirect to protected component
     });
+  }
+
+  // Toggle the sidebar (for mobile)
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  // Toggle the Students sub-menu
+  toggleSubMenu() {
+    this.isSubMenuVisible = !this.isSubMenuVisible;
   }
 
   //

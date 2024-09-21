@@ -1,18 +1,18 @@
 <div class="student-details-container" *ngIf="student">
-  <h2 class="student-name">{{ student?.name }}</h2>
+  <h2 class="student-name">{{ student.name }}</h2>
 
   <table class="student-info-table">
     <tr>
       <th>Admission Number:</th>
-      <td>{{ student?.admNo }}</td>
+      <td>{{ student.admNo }}</td>
     </tr>
     <tr>
       <th>ID:</th>
-      <td>{{ student?.id }}</td>
+      <td>{{ student.id }}</td>
     </tr>
-    <tr *ngIf="student?.name">
-      <th>Email:</th>
-      <td>{{ student?.name }}</td>
+    <tr *ngIf="student.name">
+      <th>Name:</th>
+      <td>{{ student.name }}</td>
     </tr>
     <!-- Add more fields as needed -->
   </table>

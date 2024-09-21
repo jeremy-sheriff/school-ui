@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentsServiceService } from "../../services/students/students-service.service";
+import { StudentsServiceService } from "../../../services/students/students-service.service";
 import { NgIf, NgFor } from "@angular/common";
-import { Router } from '@angular/router';  // Import Router
-import {Student} from "../../interfaces/students/student";
+import { Router } from '@angular/router';
+import {Student} from "../../../interfaces/students/student";  // Import Router
+
 
 @Component({
   selector: 'app-students-component',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {StudentsServiceService} from "../../services/students/students-service.service";
-import {Student} from "../../interfaces/students/student";
+import {StudentsServiceService} from "../../../services/students/students-service.service";
+import {Student} from "../../../interfaces/students/student";
 import {NgIf} from "@angular/common";
 
 @Component({

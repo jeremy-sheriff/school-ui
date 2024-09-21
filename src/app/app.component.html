@@ -5,11 +5,20 @@
   </div>
 
   <!-- Sidebar - only visible when authenticated and sidebarVisible is true -->
-  <aside class="sidebar" *ngIf="isAuthenticated && sidebarVisible">
+  <aside class="sidebar" [ngClass]="{ 'sidebar-hidden': !sidebarVisible }" *ngIf="isAuthenticated">
     <nav class="nav">
       <ul>
         <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="students">Students</a></li>
+
+        <!-- Students with Submenu -->
+        <li>
+          <a href="javascript:void(0)" (click)="toggleSubMenu()">Students</a>
+          <ul [ngClass]="{ 'submenu-visible': isSubMenuVisible }">
+            <li><a routerLink="students">List All Students</a></li>
+            <li><a routerLink="students/create">Create Student</a></li>
+          </ul>
+        </li>
+
         <li><a routerLink="library">Library</a></li>
       </ul>
     </nav>
@@ -22,6 +31,7 @@
 
   <!-- Content Area -->
   <div class="content">
+    <app-breadcrumbs></app-breadcrumbs> <!-- Add Breadcrumbs Component -->
     <main class="main-content">
       <router-outlet></router-outlet> <!-- This will load the routed components -->
     </main>
