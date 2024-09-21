@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StudentsServiceService} from "../../services/students/students-service.service";
 import {Student} from "../../interfaces/students/student";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-student-detail-component',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.css'
 })
