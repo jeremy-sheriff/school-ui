@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="!loading && students.length > 0; else noData">
-  <h2>Students List</h2>
+  <h2>Students Lists</h2>
   <table class="students-table">
     <thead>
     <tr>
@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let student of students; let i = index">
+    <tr *ngFor="let student of students; let i = index" (click)="getStudentByAdmNo(student.admNo)">
       <td>{{ i + 1 }}</td>
       <td>{{ student.name }}</td>
       <td>{{ student.admNo }}</td>

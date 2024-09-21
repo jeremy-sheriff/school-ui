@@ -11,19 +11,13 @@ export class LibraryService {
   private apiUrl = environment.library_api_base_url+'/api/library/books';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
-
-  // Method to get students with Keycloak token
   getBooks(): Observable<any> {
-    // Return the Observable directly
     return new Observable(observer => {
-      // Use async/await inside the Observable's subscribe logic
       this.keycloakService.getToken().then(token => {
         // Set the Authorization header with the Bearer token
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`
         });
-
-        // Make the HTTP GET request to the API
         this.http.get<any>(this.apiUrl, { headers }).subscribe(
           data => {
             observer.next(data);  // Pass the data to the observer

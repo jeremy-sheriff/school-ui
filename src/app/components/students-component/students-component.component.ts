@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsServiceService } from "../../services/students/students-service.service";
-import { NgIf } from "@angular/common";
-import { NgFor } from "@angular/common";
+import { NgIf, NgFor } from "@angular/common";
+import {Student} from "../../interfaces/students/student";
 
 @Component({
   selector: 'app-students-component',
@@ -10,10 +10,12 @@ import { NgFor } from "@angular/common";
   templateUrl: './students-component.component.html',
   styleUrls: ['./students-component.component.css']
 })
+
 export class StudentsComponentComponent implements OnInit {
-  students: any[] = []; // Store student data
+  students: Student[] = []; // Store student data
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
+  selectedStudent: Student | null = null; // Store selected student details
 
   constructor(private studentsService: StudentsServiceService) {}
 
@@ -31,6 +33,24 @@ export class StudentsComponentComponent implements OnInit {
       error: (err) => {
         this.errorMessage = 'Error fetching students';
         this.loading = false; // Hide loader on error
+        console.error(err);
+      }
+    });
+  }
+
+  // Fetch a student by admNo
+  getStudentByAdmNo(admNo: string) {
+    alert("He")
+    this.loading = true; // Show loader while fetching the student
+    this.studentsService.getStudentByAdmNo(admNo).subscribe({
+      next: (student) => {
+        this.selectedStudent = student; // Store the selected student's details
+        this.loading = false;
+        console.log('Selected student:', student);
+      },
+      error: (err) => {
+        this.errorMessage = `Error fetching student with admNo: ${admNo}`;
+        this.loading = false;
         console.error(err);
       }
     });

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 import {environment} from "../../../environments/environment";
+import {Student} from "../../interfaces/students/student";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class StudentsServiceService {
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
 
   // Method to get students with Keycloak token
-  getStudents(): Observable<any> {
+  getStudents(): Observable<Student> {
     // Return the Observable directly
     return new Observable(observer => {
       // Use async/await inside the Observable's subscribe logic
@@ -25,7 +26,7 @@ export class StudentsServiceService {
         });
 
         // Make the HTTP GET request to the API
-        this.http.get<any>(this.apiUrl, { headers }).subscribe(
+        this.http.get<Student>(this.apiUrl, { headers }).subscribe(
           data => {
             observer.next(data);  // Pass the data to the observer
             observer.complete();  // Complete the observable
@@ -38,6 +39,30 @@ export class StudentsServiceService {
         console.error("Error fetching token", error);
         observer.error(error);  // Pass token error to observer
       });
+    });
+  }
+
+  // Fetch a student by admNo
+  getStudentByAdmNo(admNo: string): Observable<Student> {
+    this.keycloakService.getToken().then(token => {
+      // Set the Authorization header with the Bearer token
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      // Make the HTTP GET request to the API
+      this.http.get<Student>(`${this.apiUrl}/${admNo}`, { headers }).subscribe(
+        data => {
+          observer.next(data);  // Pass the data to the observer
+          observer.complete();  // Complete the observable
+        },
+        error => {
+          observer.error(error);  // Pass any errors to the observer
+        }
+      );
+    }).catch(error => {
+      console.error("Error fetching token", error);
+      observer.error(error);  // Pass token error to observer
     });
   }
 }
