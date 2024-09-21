@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsServiceService } from "../../services/students/students-service.service";
 import { NgIf, NgFor } from "@angular/common";
+import { Router } from '@angular/router';  // Import Router
 import {Student} from "../../interfaces/students/student";
 
 @Component({
@@ -11,13 +12,16 @@ import {Student} from "../../interfaces/students/student";
   styleUrls: ['./students-component.component.css']
 })
 
-export class StudentsComponentComponent implements OnInit {
-  students: Student[] = []; // Store student data
+export class StudentsComponent implements OnInit {
+  students: any = []; // Store student data
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
   selectedStudent: Student | null = null; // Store selected student details
 
-  constructor(private studentsService: StudentsServiceService) {}
+  constructor(
+    private studentsService: StudentsServiceService,
+    private router: Router  // Inject Router here
+  ) {}
 
   ngOnInit(): void {
     this.fetchStudents();
@@ -38,9 +42,13 @@ export class StudentsComponentComponent implements OnInit {
     });
   }
 
+  // Method to navigate to student details page
+  viewStudentDetails(admNo: string) {
+    this.router.navigate(['/students', admNo]);  // Navigate to the student details route
+  }
+
   // Fetch a student by admNo
   getStudentByAdmNo(admNo: string) {
-    alert("He")
     this.loading = true; // Show loader while fetching the student
     this.studentsService.getStudentByAdmNo(admNo).subscribe({
       next: (student) => {

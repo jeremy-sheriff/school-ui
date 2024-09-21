@@ -14,12 +14,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let student of students; let i = index" (click)="getStudentByAdmNo(student.admNo)">
+    <tr *ngFor="let student of students; let i = index" (click)="viewStudentDetails(student.admNo)">
       <td>{{ i + 1 }}</td>
       <td>{{ student.name }}</td>
       <td>{{ student.admNo }}</td>
-      <!-- Add more fields as per your API response -->
     </tr>
+
     </tbody>
   </table>
 </div>
