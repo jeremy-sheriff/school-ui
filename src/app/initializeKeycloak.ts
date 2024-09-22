@@ -7,9 +7,9 @@ export function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: environment.keycloak_base_url+'/keycloak/auth', // Your Keycloak URL
-        realm: 'school',               // Your Keycloak Realm
-        clientId: 'students-service'         // Your Keycloak Client ID
+        url: environment.keycloak_base_url+'/keycloak/auth',
+        realm: 'school',
+        clientId: 'students-service'
       },
       initOptions: {
         onLoad: 'check-sso',

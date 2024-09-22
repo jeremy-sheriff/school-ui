@@ -61,4 +61,32 @@ export class StudentsServiceService {
       });
     });
   }
+
+
+// Save new student using Keycloak token
+  saveNewStudent(studentData: any): Observable<Student> {
+    return new Observable(observer => {
+      this.keycloakService.getToken().then(token => {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        });
+
+        // Post to the backend
+        this.http.post<Student>(`${this.apiUrl}/save`, studentData, { headers })
+          .subscribe(
+            (response) => {
+              observer.next(response);  // Pass the response to the observer
+              observer.complete();      // Complete the observable
+            },
+            (error) => {
+              observer.error(error);  // Pass any errors to the observer
+            }
+          );
+      }).catch(error => {
+        console.error("Error fetching token", error);
+        observer.error(error);  // Pass token error to observer
+      });
+    });
+  }
 }
