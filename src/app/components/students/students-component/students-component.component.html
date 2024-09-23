@@ -3,23 +3,26 @@
 </div>
 
 <div *ngIf="!loading && students.length > 0; else noData">
-  <h2>Students Lists</h2>
+  <h2>Students List</h2>
   <table class="students-table">
     <thead>
     <tr>
       <th>#</th> <!-- Index column -->
       <th>Name</th>
       <th>Admission Number</th>
-      <!-- Add more columns as per your API response -->
+      <th>Actions</th> <!-- Added actions column -->
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let student of students; let i = index" (click)="viewStudentDetails(student.admNo)">
+    <tr *ngFor="let student of students; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ student.name }}</td>
       <td>{{ student.admNo }}</td>
+      <td>
+        <button class="btn view-btn" (click)="viewStudentDetails(student.admNo)">View</button>
+        <button class="btn delete-btn" (click)="confirmDelete(student)">Delete</button>
+      </td>
     </tr>
-
     </tbody>
   </table>
 </div>
@@ -28,3 +31,15 @@
   <p *ngIf="!errorMessage">No students available.</p>
   <p *ngIf="errorMessage">{{ errorMessage }}</p>
 </ng-template>
+
+<!-- Confirmation Modal -->
+<div *ngIf="showDeleteModal" class="modal" @fadeInOut>
+  <div class="modal-content">
+    <h3>Confirm Delete</h3>
+    <p>Are you sure you want to delete {{ selectedStudent?.name }}?</p>
+    <div class="modal-actions">
+      <button class="btn confirm-btn" (click)="deleteConfirmed()">Yes</button>
+      <button class="btn cancel-btn" (click)="cancelDelete()">No</button>
+    </div>
+  </div>
+</div>

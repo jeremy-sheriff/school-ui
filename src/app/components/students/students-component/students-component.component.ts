@@ -18,6 +18,8 @@ export class StudentsComponent implements OnInit {
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
   selectedStudent: Student | null = null; // Store selected student details
+  showDeleteModal = false;
+  selectedStudentToDelete :any;
 
   constructor(
     private studentsService: StudentsServiceService,
@@ -63,5 +65,26 @@ export class StudentsComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  confirmDelete(student: any) {
+    this.selectedStudentToDelete = student;
+    this.showDeleteModal = true;  // Show the confirmation modal
+  }
+
+  deleteConfirmed() {
+    // Delete the student
+    this.students = this.students.filter((s: { admNo: any; }) => s.admNo !== this.selectedStudentToDelete.admNo);
+    this.showDeleteModal = false; // Hide the modal
+    this.selectedStudentToDelete = null;  // Reset selected student
+  }
+
+  cancelDelete() {
+    this.showDeleteModal = false;  // Hide the modal without deleting
+    this.selectedStudentToDelete = null;   // Reset selected student
+  }
+
+  deleteStudent(admNo: any) {
+
   }
 }
