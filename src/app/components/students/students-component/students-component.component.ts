@@ -17,9 +17,9 @@ export class StudentsComponent implements OnInit {
   students: any = []; // Store student data
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
-  selectedStudent: Student | null = null; // Store selected student details
+  selectedStudent: Student | undefined; // Store selected student details
   showDeleteModal = false;
-  selectedStudentToDelete :any;
+  selectedStudentToDelete : Student | null = null;
 
   constructor(
     private studentsService: StudentsServiceService,
@@ -68,16 +68,25 @@ export class StudentsComponent implements OnInit {
   }
 
   confirmDelete(student: any) {
-    this.selectedStudentToDelete = student;
+    this.selectedStudent = student;
     this.showDeleteModal = true;  // Show the confirmation modal
+    console.log(student)
   }
 
   deleteConfirmed() {
-    // Delete the student
-    this.students = this.students.filter((s: { admNo: any; }) => s.admNo !== this.selectedStudentToDelete.admNo);
-    this.showDeleteModal = false; // Hide the modal
-    this.selectedStudentToDelete = null;  // Reset selected student
+    this.studentsService.deleteNewStudent(this.selectedStudent).subscribe({
+      next: (response) => {
+        // Successful delete
+        this.fetchStudents(); // Fetch the updated list of students
+        this.showDeleteModal = false;
+      },
+      error: (error) => {
+        // Handle any errors
+        console.error('Error deleting student:', error);
+      }
+    });
   }
+
 
   cancelDelete() {
     this.showDeleteModal = false;  // Hide the modal without deleting

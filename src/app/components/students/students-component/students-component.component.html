@@ -33,12 +33,12 @@
 </ng-template>
 
 <!-- Confirmation Modal -->
-<div *ngIf="showDeleteModal" class="modal" @fadeInOut>
+<div *ngIf="showDeleteModal" class="modal">
   <div class="modal-content">
     <h3>Confirm Delete</h3>
     <p>Are you sure you want to delete {{ selectedStudent?.name }}?</p>
     <div class="modal-actions">
-      <button class="btn confirm-btn" (click)="deleteConfirmed()">Yes</button>
+      <button class="btn confirm-btn" (click)="deleteConfirmed()">Yes delete</button>
       <button class="btn cancel-btn" (click)="cancelDelete()">No</button>
     </div>
   </div>

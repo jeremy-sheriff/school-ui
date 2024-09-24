@@ -4,7 +4,6 @@ import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {OnInit } from '@angular/core';
 import {NgClass, NgIf} from "@angular/common";
 import {BreadcrumbsComponent} from "./components/breadcrumbs/breadcrumbs.component";
-
 @Component({
   selector: 'app-component',
   standalone: true,
@@ -14,7 +13,7 @@ import {BreadcrumbsComponent} from "./components/breadcrumbs/breadcrumbs.compone
     RouterOutlet,
     RouterLink,
     BreadcrumbsComponent,
-    NgClass
+    NgClass,
   ],
   styleUrl: './app.component.css'
 })

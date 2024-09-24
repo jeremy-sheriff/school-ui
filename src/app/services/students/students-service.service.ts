@@ -89,4 +89,21 @@ export class StudentsServiceService {
       });
     });
   }
+
+
+  // Delete student using Keycloak token
+  deleteNewStudent(student: Student | undefined): Observable<Student> {
+    return new Observable(observer => {
+      this.keycloakService.getToken().then(token => {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        });
+        this.http.delete<Student>(`${this.apiUrl}/delete/student/${student?.id}`, { headers }).subscribe()
+      }).catch(error => {
+        console.error("Error fetching token", error);
+        observer.error(error);  // Pass token error to observer
+      });
+    });
+  }
 }

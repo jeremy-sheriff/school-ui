@@ -8,11 +8,13 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     keycloak.init({
       config: {
         url: environment.keycloak_base_url+'/keycloak/auth',
-        realm: 'school',
+        realm: "school",
         clientId: 'students-service'
       },
       initOptions: {
-        onLoad: 'check-sso',
+        // onLoad: 'check-sso',
+        onLoad: 'login-required',
+        // flow:"implicit",
         silentCheckSsoRedirectUri: window.location.origin + 'silent-check-sso.html'
       }
     });

@@ -254,5 +254,16 @@ h3, p {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.modal-actions .btn {
+  padding: 12px 24px; /* Wider buttons */
+  border-radius: 30px; /* More curved corners */
+  margin-right: 10px; /* Closer spacing between buttons */
+  font-size: 16px; /* Larger font size */
+}
+
+.modal-actions .btn:last-child {
+  margin-right: 0; /* Remove right margin from the last button */
+}
+
 
 
