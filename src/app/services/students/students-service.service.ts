@@ -92,18 +92,32 @@ export class StudentsServiceService {
 
 
   // Delete student using Keycloak token
-  deleteNewStudent(student: Student | undefined): Observable<Student> {
+  deleteStudent(student: Student | undefined): Observable<any> {
     return new Observable(observer => {
       this.keycloakService.getToken().then(token => {
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         });
-        this.http.delete<Student>(`${this.apiUrl}/delete/student/${student?.id}`, { headers }).subscribe()
+
+        // Make the delete request
+        this.http.delete(`${this.apiUrl}/delete/student/${student?.id}`, { headers }).subscribe({
+          next: (response) => {
+            // Notify success
+            observer.next(response);
+            observer.complete();
+          },
+          error: (error) => {
+            // Notify error
+            observer.error(error);
+          }
+        });
+
       }).catch(error => {
         console.error("Error fetching token", error);
-        observer.error(error);  // Pass token error to observer
+        observer.error(error);  // Notify observer of the token fetch error
       });
     });
   }
+
 }

@@ -74,7 +74,7 @@ export class StudentsComponent implements OnInit {
   }
 
   deleteConfirmed() {
-    this.studentsService.deleteNewStudent(this.selectedStudent).subscribe({
+    this.studentsService.deleteStudent(this.selectedStudent).subscribe({
       next: (response) => {
         // Successful delete
         this.fetchStudents(); // Fetch the updated list of students
@@ -86,6 +86,7 @@ export class StudentsComponent implements OnInit {
       }
     });
   }
+
 
 
   cancelDelete() {
