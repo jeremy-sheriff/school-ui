@@ -19,7 +19,8 @@
       <td>{{ student.name }}</td>
       <td>{{ student.admNo }}</td>
       <td>
-        <button class="btn view-btn" (click)="viewStudentDetails(student.admNo)">View</button>
+        <button class="btn view-btn" (click)="viewStudentDetails(student.id)">View</button>
+        <button class="btn update-btn" (click)="confirmUpdate(student)">Update</button>
         <button class="btn delete-btn" (click)="confirmDelete(student)">Delete</button>
       </td>
     </tr>
@@ -50,3 +51,29 @@
     </div>
   </div>
 </div>
+
+
+<!-- Update Modal -->
+<div *ngIf="showUpdateModal" class="modal">
+  <div class="modal-content">
+    <h3>Update Student Details</h3>
+     Form to update student details
+<!--    <div class="modal-body">-->
+<!--      <label>-->
+<!--        Name:-->
+<!--        <input [(ngModel)]="selectedStudent?.name" />-->
+<!--      </label>-->
+<!--      <br />-->
+<!--      <label>-->
+<!--        Admission Number:-->
+<!--        <input [(ngModel)]="selectedStudent?.admNo" />-->
+<!--      </label>-->
+<!--      &lt;!&ndash; Add more fields as necessary &ndash;&gt;-->
+<!--    </div>-->
+    <div class="modal-actions">
+      <button class="btn confirm-btn" (click)="saveUpdate()">Save</button>
+      <button class="btn cancel-btn" (click)="cancelUpdate()">Cancel</button>
+    </div>
+  </div>
+</div>
+

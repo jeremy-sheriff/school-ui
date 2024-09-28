@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsServiceService } from "../../../services/students/students-service.service";
-import { NgIf, NgFor } from "@angular/common";
+import { NgIf, NgFor} from "@angular/common";
 import { Router } from '@angular/router';
 import { Student } from "../../../interfaces/students/student";
+import {FormsModule} from "@angular/forms";
+
 
 @Component({
   selector: 'app-students-component',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, FormsModule,],
   templateUrl: './students-component.component.html',
   styleUrls: ['./students-component.component.css']
 })
@@ -18,6 +20,35 @@ export class StudentsComponent implements OnInit {
   selectedStudent: Student | undefined; // Store selected student details
   showDeleteModal = false;
   selectedStudentToDelete: Student | null = null;
+  showUpdateModal = false; // New variable to control update modal visibility
+  updatedStudent: Student = {id:1,admNo:"",name:""}; // Store the student being updated
+
+  // Method to open update modal
+  confirmUpdate(student: Student) {
+    this.updatedStudent = { ...student } as Student; // Clone the student to prevent direct mutation
+    this.showUpdateModal = true;
+  }
+
+  // Method to handle saving updates
+  saveUpdate() {
+    if (this.updatedStudent) {
+      this.studentsService.updateStudent(this.updatedStudent).subscribe(() => {
+        this.fetchStudents(this.page, this.size); // Refresh the list after update
+        this.showUpdateModal = false; // Hide the modal
+        this.updatedStudent = {id:1,admNo:"",name:""}; // Clear updated student
+      }, error => {
+        console.error('Error updating student:', error);
+        // Optionally show an error message
+      });
+    }
+  }
+
+  // Method to cancel update and close modal
+  cancelUpdate() {
+    this.showUpdateModal = false;
+    this.updatedStudent =  {id:1,admNo:"",name:""};
+  }
+
 
   // Pagination properties
   page = 0; // Current page index
@@ -53,8 +84,8 @@ export class StudentsComponent implements OnInit {
   }
 
   // Method to navigate to student details page
-  viewStudentDetails(admNo: string) {
-    this.router.navigate(['/students', admNo]);
+  viewStudentDetails(id: number) {
+    this.router.navigate(['/students', id]);
   }
 
   // Fetch a student by admNo
