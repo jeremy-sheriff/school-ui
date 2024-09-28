@@ -14,17 +14,21 @@ export class StudentsServiceService {
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
 
+
+
+
   // Method to get students with Keycloak token
-  getStudents(): Observable<Student> {
+  getStudents(page: number, size: number): Observable<any> {
     return new Observable(observer => {
       this.keycloakService.getToken().then(token => {
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`
         });
 
-        this.http.get<Student>(this.apiUrl+"/all", { headers }).subscribe(
+        // Append page and size parameters to the API request
+        this.http.get<any>(`${this.apiUrl}/all?page=${page}&size=${size}`, { headers }).subscribe(
           data => {
-            observer.next(data);
+            observer.next(data); // Emit the paginated response data
             observer.complete();
           },
           error => {
@@ -37,6 +41,7 @@ export class StudentsServiceService {
       });
     });
   }
+
 
   // Fetch a student by admNo
   getStudentByAdmNo(admNo: string): Observable<Student> {
