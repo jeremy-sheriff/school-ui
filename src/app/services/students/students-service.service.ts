@@ -10,7 +10,7 @@ import { Student } from "../../interfaces/students/student";
 })
 export class StudentsServiceService {
 
-  private apiUrl = environment.students_api_base_url + '/api/students';
+  private apiUrl = environment.students_api_base_url + '/students';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
 

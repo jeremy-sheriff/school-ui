@@ -8,7 +8,7 @@ import {environment} from "../../../environments/environment";
   providedIn: 'root'
 })
 export class LibraryService {
-  private apiUrl = environment.library_api_base_url+'/api/library/books';
+  private apiUrl = environment.library_api_base_url+'/library/books';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
   getBooks(): Observable<any> {
