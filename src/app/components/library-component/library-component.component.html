@@ -5,6 +5,9 @@
 <!-- Button to open modal -->
 <div *ngIf="!loading">
   <button class="create-book-btn" (click)="openModal()">Create Book</button>
+  <!-- Button to trigger the Issue Book modal -->
+  <button class="create-book-btn" (click)="openIssueModal()">Issue a Book</button>
+
 </div>
 
 <div *ngIf="!loading && books.length > 0; else noData">
@@ -71,6 +74,35 @@
     </form>
   </div>
 </div>
+
+
+<!-- Issue Book Modal Structure -->
+<div *ngIf="showIssueModal" class="modal" [ngClass]="{'closing': isIssueClosing}" [@modalTransition]>
+  <div class="modal-content">
+    <span class="close" (click)="closeIssueModal()">&times;</span>
+    <h2>Issue a Book</h2>
+
+    <!-- Form for issuing a book -->
+    <form (ngSubmit)="issueBook()">
+      <div class="modal-body">
+        <!-- Admission Number input field -->
+        <label for="admNo">Admission Number</label>
+        <input type="text" id="admNo" [(ngModel)]="issueBookForm.admNo" name="admNo" required>
+
+        <!-- Book ISBN input field -->
+        <label for="bookIsbn">Book ISBN</label>
+        <input type="text" id="bookIsbn" [(ngModel)]="issueBookForm.bookIsbn" name="bookIsbn" required>
+      </div>
+
+      <!-- Modal actions -->
+      <div class="modal-actions">
+        <button type="submit" class="btn save-btn">Issue Book</button>
+        <button type="button" class="btn cancel-btn" (click)="closeIssueModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 
 

@@ -23,10 +23,18 @@ export class LibraryComponentComponent {
   showModal: boolean = false; // State to control the modal visibility
   newBook = { bookTitle: '', bookAuthor: '' ,bookIsbn:''}; // New book model
 
+  showIssueModal = false;  // Controls the modal visibility for issuing a book
+  isIssueClosing = false;  // Controls the closing animation state for the issue modal
+
   page = 0; // Current page index
   size = 10; // Page size
   totalPages = 1; // Total number of pages
   totalElements = 0; // Total number of students
+
+  issueBookForm = {
+    admNo: '',     // Admission Number
+    bookIsbn: ''   // Book ISBN
+  };
 
   constructor(private libraryService: LibraryService) {}
 
@@ -51,9 +59,36 @@ export class LibraryComponentComponent {
     });
   }
 
+  // Method to open the Issue Book modal
+  openIssueModal() {
+    this.showIssueModal = true;
+    this.isIssueClosing = false;  // Reset closing state
+  }
+
+  // Method to close the Issue Book modal with animation
+  closeIssueModal() {
+    this.isIssueClosing = true;
+    setTimeout(() => {
+      this.showIssueModal = false;
+      this.isIssueClosing = false;
+      this.issueBookForm = { admNo: '', bookIsbn: '' };  // Reset form fields
+    }, 500);  // Match the duration of the closing animation (0.5s)
+  }
+
   // Open modal to create a book
   openModal() {
     this.showModal = true;
+  }
+
+  // Method to handle issuing a book
+  issueBook() {
+    if (this.issueBookForm.admNo && this.issueBookForm.bookIsbn) {
+      // Call service to issue the book
+      console.log('Book issued with the following details:', this.issueBookForm);
+
+      // Close modal after issuing
+      this.closeIssueModal();
+    }
   }
 
   closeModal() {
