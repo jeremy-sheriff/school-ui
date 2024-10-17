@@ -21,19 +21,26 @@ export class LibraryComponentComponent {
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
   showModal: boolean = false; // State to control the modal visibility
-  newBook = { bookTitle: 'Atomic Habits', bookAuthor: 'James Clear' ,bookIsbn:'8392839283'}; // New book model
+  newBook = { bookTitle: '', bookAuthor: '' ,bookIsbn:''}; // New book model
+
+  page = 0; // Current page index
+  size = 10; // Page size
+  totalPages = 1; // Total number of pages
+  totalElements = 0; // Total number of students
 
   constructor(private libraryService: LibraryService) {}
 
   ngOnInit(): void {
-    this.fetchBooks();
+    this.fetchBooks(this.page, this.size);
   }
 
   // Fetch books using the service
-  fetchBooks() {
-    this.libraryService.getBooks().subscribe({
-      next: (data) => {
-        this.books = data;
+  fetchBooks(page: number, size: number) {
+    this.libraryService.getBooks(page, size).subscribe({
+      next: (response) => {
+        this.books = response.content;
+        this.totalPages = response.totalPages;
+        this.totalElements = response.totalElements;
         this.loading = false; // Hide loader when data is fetched
       },
       error: (err) => {
@@ -66,7 +73,7 @@ export class LibraryComponentComponent {
       // // Assuming libraryService has a method to add a book, this should be replaced with an actual service call
       this.libraryService.createBook(this.newBook).subscribe({
         next: (book) => {
-          this.fetchBooks()
+          this.fetchBooks(this.page, this.size);
           // this.books.push(this.newBook); // Add the new book to the list
           this.closeModal(); // Close the modal after submission
         },
@@ -80,5 +87,13 @@ export class LibraryComponentComponent {
 
   onSubmit() {
 
+  }
+
+  // Change page
+  changePage(newPage: number) {
+    if (newPage >= 0 && newPage < this.totalPages) {
+      this.page = newPage;
+      this.fetchBooks(this.page, this.size);
+    }
   }
 }

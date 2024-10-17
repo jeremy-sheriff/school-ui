@@ -11,16 +11,16 @@ export class LibraryService {
   private apiUrl = environment.library_api_base_url+'/library/books';
 
   constructor(private http: HttpClient, private keycloakService: KeycloakService) { }
-  getBooks(): Observable<any> {
+  getBooks(page: number, size: number): Observable<any> {
     return new Observable(observer => {
       this.keycloakService.getToken().then(token => {
         // Set the Authorization header with the Bearer token
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`
         });
-        this.http.get<any>(this.apiUrl, { headers }).subscribe(
+        this.http.get<any>(`${this.apiUrl}?page=${page}&size=${size}`, { headers }).subscribe(
           data => {
-            observer.next(data);  // Pass the data to the observer
+            observer.next(data);  // Emit the paginated response data
             observer.complete();  // Complete the observable
           },
           error => {

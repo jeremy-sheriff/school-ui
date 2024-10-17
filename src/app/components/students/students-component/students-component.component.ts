@@ -23,6 +23,13 @@ export class StudentsComponent implements OnInit {
   showUpdateModal = false; // New variable to control update modal visibility
   updatedStudent: Student = {id:1,admNo:"",name:""}; // Store the student being updated
 
+  // Pagination properties
+  page = 0; // Current page index
+  size = 10; // Page size
+  totalPages = 1; // Total number of pages
+  totalElements = 0; // Total number of students
+
+
   // Method to open update modal
   confirmUpdate(student: Student) {
     this.updatedStudent = { ...student } as Student; // Clone the student to prevent direct mutation
@@ -50,11 +57,6 @@ export class StudentsComponent implements OnInit {
   }
 
 
-  // Pagination properties
-  page = 0; // Current page index
-  size = 10; // Page size
-  totalPages = 1; // Total number of pages
-  totalElements = 0; // Total number of students
 
   constructor(
     private studentsService: StudentsServiceService,

@@ -19,12 +19,20 @@
     </thead>
     <tbody>
     <tr *ngFor="let book of books; let i = index">
-      <td>{{ i + 1 }}</td>
+      <td>{{ i + 1 + page * size }}</td>
       <td>{{ book.title }}</td>
       <td>{{ book.author }}</td>
     </tr>
     </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button class="prev-button" (click)="changePage(page - 1)" [disabled]="page === 0">Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button class="next-button" (click)="changePage(page + 1)" [disabled]="page + 1 >= totalPages">Next</button>
+  </div>
+
 </div>
 
 <ng-template #noData>

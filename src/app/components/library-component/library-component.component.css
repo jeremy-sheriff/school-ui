@@ -244,3 +244,47 @@ body {
 .closing .modal {
   animation: fadeOut 0.5s forwards;
 }
+
+
+
+
+/* Pagination Controls */
+.pagination-controls {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between elements */
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #3498db; /* Blue background */
+  color: #fff; /* White text */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.pagination-controls button:disabled {
+  background-color: #95a5a6; /* Grey background when disabled */
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ecf0f1; /* Light text */
+}
+
+/* Pagination button animation */
+.pagination-controls button:hover:not(:disabled) {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
