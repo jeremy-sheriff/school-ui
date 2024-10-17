@@ -71,7 +71,7 @@ body {
 /* Create New Book button styles */
 .create-book-btn {
   background-color: #1abc9c; /* Button background color */
-  border: none;
+  border-radius: 10px;
   color: white;
   padding: 10px 20px;
   text-align: center;

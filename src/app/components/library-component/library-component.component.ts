@@ -21,7 +21,7 @@ export class LibraryComponentComponent {
   errorMessage: string | null = null; // Store any error message
   loading: boolean = true; // Loading state to show/hide the loader
   showModal: boolean = false; // State to control the modal visibility
-  newBook = { title: '', author: '' ,isbn:'',borrowed:''}; // New book model
+  newBook = { bookTitle: 'Atomic Habits', bookAuthor: 'James Clear' ,bookIsbn:'8392839283'}; // New book model
 
   constructor(private libraryService: LibraryService) {}
 
@@ -54,7 +54,7 @@ export class LibraryComponentComponent {
     setTimeout(() => {
       this.showModal = false;  // Hide the modal after the animation
       this.isClosing = false;  // Reset the closing state
-      this.newBook = { title: '', author: '', isbn: '', borrowed: '' }; // Reset the form
+      this.newBook = { bookTitle: '', bookAuthor: '', bookIsbn: ''}; // Reset the form
     }, 500);  // Match the duration of your closing animation (0.5s)
   }
 
@@ -62,18 +62,19 @@ export class LibraryComponentComponent {
 
   // Create a new book
   createBook() {
-    if (this.newBook.title && this.newBook.author) {
+    if (this.newBook.bookTitle && this.newBook.bookAuthor && this.newBook.bookIsbn) {
       // // Assuming libraryService has a method to add a book, this should be replaced with an actual service call
-      // this.libraryService.addBook(this.newBook).subscribe({
-      //   next: (book) => {
-      //     this.books.push(book); // Add the new book to the list
-      //     this.closeModal(); // Close the modal after submission
-      //   },
-      //   error: (err) => {
-      //     this.errorMessage = 'Error adding book';
-      //     console.error(err);
-      //   }
-      // });
+      this.libraryService.createBook(this.newBook).subscribe({
+        next: (book) => {
+          this.fetchBooks()
+          // this.books.push(this.newBook); // Add the new book to the list
+          this.closeModal(); // Close the modal after submission
+        },
+        error: (err) => {
+          this.errorMessage = 'Error adding book';
+          console.error(err);
+        }
+      });
     }
   }
 

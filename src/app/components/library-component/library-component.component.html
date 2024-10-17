@@ -44,19 +44,15 @@
       <div class="modal-body">
         <!-- Title input field -->
         <label for="title">Title</label>
-        <input type="text" id="title" [(ngModel)]="newBook.title" name="title" required>
+        <input type="text" id="title" [(ngModel)]="newBook.bookTitle" name="title" required>
 
         <!-- Author input field -->
         <label for="author">Author</label>
-        <input type="text" id="author" [(ngModel)]="newBook.author" name="author" required>
+        <input type="text" id="author" [(ngModel)]="newBook.bookAuthor" name="author" required>
 
         <!-- ISBN input field -->
         <label for="isbn">ISBN</label>
-        <input type="text" id="isbn" [(ngModel)]="newBook.isbn" name="isbn" required>
-
-        <!-- Borrowed checkbox -->
-        <label for="borrowed">Borrowed</label>
-        <input type="checkbox" id="borrowed" [(ngModel)]="newBook.borrowed" name="borrowed">
+        <input type="text" id="isbn" [(ngModel)]="newBook.bookIsbn" name="isbn" required>
       </div>
 
       <!-- Modal actions -->
