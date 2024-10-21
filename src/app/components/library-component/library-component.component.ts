@@ -80,14 +80,18 @@ export class LibraryComponentComponent {
     this.showModal = true;
   }
 
-  // Method to handle issuing a book
   issueBook() {
     if (this.issueBookForm.admNo && this.issueBookForm.bookIsbn) {
-      // Call service to issue the book
-      console.log('Book issued with the following details:', this.issueBookForm);
-
-      // Close modal after issuing
-      this.closeIssueModal();
+      // Call the service method to issue the book
+      this.libraryService.issueBook(this.issueBookForm).subscribe({
+        next: (data) => {
+          console.log('Book successfully issued:', data);
+          this.closeIssueModal();  // Close the modal after successful issuing
+        },
+        error: (err) => {
+          console.error('Error issuing book:', err);
+        }
+      });
     }
   }
 

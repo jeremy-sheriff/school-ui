@@ -56,10 +56,10 @@
   background-color: #34495e; /* Darker alternate row background */
 }
 
-.students-table tbody tr:hover {
-  background-color: #1abc9c; /* Hover effect */
-  cursor: pointer;
-}
+/*.students-table tbody tr:hover {*/
+/*  background-color: #1abc9c; !* Hover effect *!*/
+/*  cursor: pointer;*/
+/*}*/
 
 /* Dark theme background */
 body {
