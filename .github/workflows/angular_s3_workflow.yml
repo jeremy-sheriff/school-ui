@@ -19,12 +19,14 @@ jobs:
         with:
           node-version: 22.9.0
 
-
       - name: Install Dependencies
         run: npm install
 
       - name: Build Angular Application
-        run: npm run build -- --configuration production
+        run: |
+          npm run build -- --configuration production
+          echo "Contents of dist folder:"
+          ls ./dist
 
   deploy:
     name: Deploy to S3
@@ -40,17 +42,10 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # Change to your bucket's region
-
-      - name: Build Angular Application
-        run: |
-          npm run build -- --configuration production
-          echo "Contents of dist folder:"
-          ls ./dist
+          aws-region: us-east-1
 
       - name: Sync Build Artifacts to S3
         run: |
-          ls -la
-          aws s3 sync ./dist/angular-ui-app s3://schoolui20241226134101862700000001 \
+          aws s3 sync ./dist/ s3://schoolui20241226134101862700000001 \
             --acl public-read \
             --delete
