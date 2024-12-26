@@ -43,5 +43,3 @@ jobs:
             --acl public-read \
             --delete
 
-  deploy:
-
