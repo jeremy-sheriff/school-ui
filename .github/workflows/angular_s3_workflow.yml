@@ -26,7 +26,7 @@ jobs:
         run: |
           npm run build -- --configuration production
           echo "Contents of dist folder:"
-          ls ./dist
+          ls -la ./dist
 
   deploy:
     name: Deploy to S3
