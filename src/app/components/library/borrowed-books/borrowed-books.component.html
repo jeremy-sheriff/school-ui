@@ -1,0 +1,52 @@
+<!-- Loader when data is being fetched -->
+<div *ngIf="loading" class="loader-container">
+  <div class="spinner"></div>
+</div>
+
+<!-- Table to display borrowed books -->
+<div *ngIf="!loading && borrowedBooks.length > 0; else noData">
+  <h2>Borrowed Books List</h2>
+  <table class="students-table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Student</th>
+      <th>Adm No</th>
+      <th>Isbn</th>
+      <th>Issued</th>
+      <th>Expected</th>
+      <th>Returned</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of borrowedBooks; let i = index">
+      <td>{{ i + 1 + page * size }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{ book.name }}</td>
+      <td>{{ book.admNno }}</td>
+      <td>{{ book.isbn }}
+        <button class="copy-link-btn" (click)="copyToClipboard(book.isbn)">
+          <fa-icon [icon]="faClipboard"></fa-icon>
+        </button>
+      </td>
+      <td>{{ book.dateIssued }}</td>
+      <td>{{ book.expectedDate }}</td>
+      <td>{{ book.returnDate }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button class="prev-button" (click)="changePage(page - 1)" [disabled]="page === 0">Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button class="next-button" (click)="changePage(page + 1)" [disabled]="page + 1 >= totalPages">Next</button>
+  </div>
+</div>
+
+<!-- If no data is available -->
+<ng-template #noData>
+<!--  <p *ngIf="!errorMessage">No borrowed books available.</p>-->
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+</ng-template>

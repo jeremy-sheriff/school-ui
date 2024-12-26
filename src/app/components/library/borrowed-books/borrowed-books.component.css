@@ -1,0 +1,430 @@
+.copy-link-btn {
+  background: none;       /* Remove background */
+  border: none;           /* Remove border */
+  padding: 0;             /* Remove padding */
+  color: #007bff;         /* Blue link color */
+  text-decoration: underline; /* Underline text */
+  cursor: pointer;        /* Make cursor a pointer */
+  font-size: 16px;        /* Adjust font size */
+  display: inline-flex;   /* Align the icon and text inline */
+  align-items: center;
+}
+
+.copy-link-btn i {
+  margin-right: 5px;      /* Add some space between icon and text */
+}
+
+/* Add hover effect */
+.copy-link-btn:hover {
+  color: #0056b3;         /* Darker blue on hover */
+  text-decoration: none;  /* Remove underline on hover */
+}
+
+/* Loader Styles */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust height based on your layout */
+}
+
+.spinner {
+  border: 8px solid #444; /* Lighter shade for background border */
+  border-top: 8px solid #1abc9c; /* Spinner color */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark themed table styles */
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1.1em;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+  background-color: #2c3e50; /* Dark background for table */
+  color: #ecf0f1; /* Light text color */
+}
+
+.students-table thead tr {
+  background-color: #1abc9c; /* Accent color for header */
+  color: #ffffff;
+  text-align: left;
+}
+
+.students-table th,
+.students-table td {
+  padding: 12px 15px;
+  border: 1px solid #444; /* Darker border */
+}
+
+.students-table tbody tr {
+  border-bottom: 1px solid #555; /* Darker row border */
+}
+
+.students-table tbody tr:nth-of-type(even) {
+  background-color: #34495e; /* Darker alternate row background */
+}
+
+/*.students-table tbody tr:hover {*/
+/*  background-color: #1abc9c; !* Hover effect *!*/
+/*  cursor: pointer;*/
+/*}*/
+
+/* Dark theme background */
+body {
+  background-color: #1b2a33; /* Overall dark background */
+  color: #ecf0f1; /* Light text color */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Create New Book button styles */
+.create-book-btn {
+  background-color: #1abc9c; /* Button background color */
+  border-radius: 10px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-book-btn:hover {
+  background-color: #16a085; /* Darker hover state */
+}
+
+/* Modal background */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards; /* Animation to fade in the background */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #2c3e50; /* Dark background */
+  padding: 30px;
+  border-radius: 12px;
+  width: 40%;
+  color: #ecf0f1; /* Light text color */
+  text-align: left; /* Align content to the left */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  position: relative;
+  opacity: 0;
+  transform: scale(0.8); /* Initially scale down the modal */
+  animation: scaleUp 0.5s forwards; /* Animation to scale up and fade in */
+}
+
+/* Modal body */
+.modal-body {
+  margin-bottom: 20px;
+}
+
+/* Modal labels */
+.modal-body label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #ecf0f1; /* Light text color */
+}
+
+/* Modal input fields */
+.modal-body input[type="text"],
+.modal-body input[type="checkbox"] {
+  width: 100%; /* Full width for text inputs */
+  padding: 10px; /* Padding inside input fields */
+  margin-top: 5px; /* Space between label and input */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ccc; /* Border color */
+  background-color: #34495e; /* Darker background for inputs */
+  color: #ecf0f1; /* Light text color inside inputs */
+}
+
+/* Checkbox input */
+.modal-body input[type="checkbox"] {
+  width: auto; /* Let checkbox take its natural width */
+  margin-top: 0;
+}
+
+/* Buttons */
+.modal-actions .btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s;
+}
+
+.save-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #c0392b;
+}
+
+.cancel-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #f44336;
+}
+
+/* Keyframes for fadeIn and scaleUp animations */
+
+/* Fade in the background overlay */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Scale up the modal and fade it in */
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8); /* Start smaller */
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1;
+  }
+}
+
+
+/* Reverse animations for closing the modal */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Add a closing class to reverse the animations */
+.closing .modal-content {
+  animation: scaleDown 0.5s forwards;
+}
+
+.closing .modal {
+  animation: fadeOut 0.5s forwards;
+}
+
+
+
+
+/* Pagination Controls */
+.pagination-controls {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between elements */
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #3498db; /* Blue background */
+  color: #fff; /* White text */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.pagination-controls button:disabled {
+  background-color: #95a5a6; /* Grey background when disabled */
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ecf0f1; /* Light text */
+}
+
+/* Pagination button animation */
+.pagination-controls button:hover:not(:disabled) {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Styled link */
+.styled-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #3498db; /* Initial link color */
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #3498db; /* Add a border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+}
+
+
+/* New Issue Button Styling */
+/*.issue-book-btn {*/
+/*  background: linear-gradient(135deg, #f39c12, #e74c3c); !* Gradient background *!*/
+/*  border-radius: 12px;*/
+/*  color: white;*/
+/*  padding: 12px 24px;*/
+/*  text-align: center;*/
+/*  font-size: 16px;*/
+/*  margin: 10px 0;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s, box-shadow 0.3s;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); !* Subtle shadow for depth *!*/
+/*  border: none; !* Remove border *!*/
+/*}*/
+
+.issue-book-btn:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400); /* Darker gradient on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+  /*transform: translateY(-3px); !* Slight upward movement on hover *!*/
+}
+
+/* Styled link (kept for reference) */
+.styled-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #3498db; /* Initial link color */
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #3498db; /* Add a border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+}
+
+
+
+/* General button styles for consistency */
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px; /* More rounded corners for a modern look */
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-right: 10px; /* Space between buttons */
+}
+
+/* Create Book Button */
+.create-book-btn {
+  background: linear-gradient(135deg, #27ae60, #2ecc71); /* Green gradient */
+  color: white;
+}
+
+.create-book-btn:hover {
+  background: linear-gradient(135deg, #2ecc71, #27ae60); /* Reverse gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+/* Issue Book Button */
+.issue-book-btn {
+  background: linear-gradient(135deg, #e74c3c, #c0392b); /* Red gradient */
+  color: white;
+}
+
+.issue-book-btn:hover {
+  background: linear-gradient(135deg, #c0392b, #e74c3c); /* Reverse gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+/* View Book Logs Button */
+.styled-link {
+  background: transparent;
+  border: 2px solid #3498db; /* Blue border */
+  color: #3498db;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 30px; /* Rounded corners for consistency */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+

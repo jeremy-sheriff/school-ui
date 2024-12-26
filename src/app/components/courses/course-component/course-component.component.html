@@ -1,0 +1,107 @@
+<div *ngIf="loading" class="loader-container">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+<button class="create-book-btn button" (click)="openDepartmentModal()"><fa-icon [icon]="faCourses"></fa-icon> Create Department</button>
+ <button class="create-book-btn button" (click)="openModal()"><fa-icon [icon]="faCourses"></fa-icon> Create Course</button>
+</div>
+
+
+
+<div *ngIf="!loading && courses.length > 0;">
+<h2>Courses List</h2>
+<table class="students-table">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Course</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let course of courses; let i = index">
+    <td>{{ i + 1 + page * size }}</td>
+    <td>{{ course.name }}</td>
+  </tr>
+  </tbody>
+</table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button class="prev-button" (click)="changePage(page - 1)" [disabled]="page === 0">Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button class="next-button" (click)="changePage(page + 1)" [disabled]="page + 1 >= totalPages">Next</button>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal Structure -->
+<div *ngIf="showModal" class="modal" [ngClass]="{'closing': isClosing}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Create new Course</h2>
+
+    <!-- Form for course creation -->
+    <form (ngSubmit)="createNewCourse()">
+      <div class="modal-body">
+        <!-- Name input field -->
+        <label for="title">Name of the Course</label>
+        <input type="text" id="title" [(ngModel)]="newCourse.name" name="title" required>
+
+
+        <!-- Department dropdown selection field -->
+        <label for="department">Department</label>
+        <select id="department" [(ngModel)]="newCourse.departmentId" name="department" required>
+          <option *ngFor="let department of departments" [value]="department.id">
+            {{ department.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Modal actions -->
+      <div class="modal-actions">
+        <button
+          type="submit"
+          class="btn save-btn"
+          [disabled]="creatingCourse">
+          <span *ngIf="creatingCourse">Loading...</span>
+          <span *ngIf="!creatingCourse">Save</span>
+        </button>
+        <button type="button" class="btn cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div *ngIf="showDepartmentModal" class="modal" [ngClass]="{'closing': isClosing}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Create new Department</h2>
+
+    <!-- Form for course creation -->
+    <form (ngSubmit)="createNewDepartment()">
+      <div class="modal-body">
+        <!-- Name input field -->
+        <label for="title">Name of the Department</label>
+        <input type="text" id="departmentName" [(ngModel)]="department.name" name="departmentName" required>
+      </div>
+
+      <!-- Modal actions -->
+      <div class="modal-actions">
+        <button
+          type="submit"
+          class="btn save-btn"
+          [disabled]="creatingDepartment">
+          <span *ngIf="creatingDepartment">Loading...</span>
+          <span *ngIf="!creatingDepartment">Save</span>
+        </button>
+        <button type="button" class="btn cancel-btn" (click)="closeDepartmentModal()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>

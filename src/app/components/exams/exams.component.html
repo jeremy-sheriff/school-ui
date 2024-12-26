@@ -1,0 +1,92 @@
+<div *ngIf="loading" class="loader-container">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+  <button class="create-book-btn button" (click)="openModal()"><fa-icon [icon]="faExams"></fa-icon> Create Exam record </button>
+</div>
+
+<div *ngIf="!loading && exams.length > 0;">
+<h2>Exam Records</h2>
+<table class="students-table">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Student</th>
+    <th>Score</th>
+    <th>Semester</th>
+    <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let exam of exams; let i = index">
+    <td>{{ i + 1 + page * size }}</td>
+    <td>{{ exam.studentName }}</td>
+    <td>{{ exam.score }}</td>
+    <td>{{ exam.semester }}</td>
+    <td>{{ exam.assessmentType }}</td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Modal Structure -->
+<div *ngIf="showModal" class="modal" [ngClass]="{'closing': isClosing}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Create exam record</h2>
+    <i *ngIf="loadingUnits">Loading Units ....</i>
+
+    <!-- Form for course creation -->
+    <form (ngSubmit)="createExamRecord()">
+      <div class="modal-body">
+        <!-- Name input field -->
+        <label for="admNo">Students Adm No</label>
+        <input placeholder="Adm No" type="text" id="admNo" [(ngModel)]="exam.admNo" name="admNo" required>
+
+
+
+        <label for="assessmentType">Assessment Type</label>
+        <select id="assessmentType" [(ngModel)]="exam.assessmentType" name="assessmentType" required>
+          <option value="1">Main Exam</option>
+          <option value="2">CAT Exam</option>
+        </select>
+
+        <label for="semester">Semester</label>
+        <select id="semester" [(ngModel)]="exam.semester" name="semester" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="2">3</option>
+        </select>
+
+
+
+        <!-- Department dropdown selection field -->
+        <label for="department">Select Unit</label>
+        <select id="department" [(ngModel)]="exam.unit" name="department" required>
+          <option *ngFor="let unit of units" [value]="unit.uuid">
+            {{ unit.name }}
+          </option>
+        </select>
+
+
+        <label for="admNo">Score</label>
+        <input placeholder="Score" type="text" id="score" [(ngModel)]="exam.score" name="score" required>
+
+      </div>
+
+      <!-- Modal actions -->
+      <div class="modal-actions">
+        <button
+          type="submit"
+          class="btn save-btn"
+          [disabled]="creatingExam">
+          <span *ngIf="creatingExam">Loading...</span>
+          <span *ngIf="!creatingExam">Save</span>
+        </button>
+        <button type="button" class="btn cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>

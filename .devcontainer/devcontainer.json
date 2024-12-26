@@ -1,0 +1,22 @@
+{
+  "name": "Angular Dev Environment",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": "..",
+    "args": {
+      "ENV": "development"
+    }
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/sh"
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "angular.ng-template",
+    "eamodio.gitlens"
+  ],
+  "forwardPorts": [4200],
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
