@@ -46,6 +46,7 @@ jobs:
 
       - name: Sync Build Artifacts to S3
         run: |
+          ls -la
           aws s3 sync ./dist/angular-ui-app/browser s3://schoolui20241226134101862700000001 \
             --acl public-read \
             --delete
