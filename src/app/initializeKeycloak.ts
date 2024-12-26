@@ -16,6 +16,17 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         onLoad: 'login-required',
         // flow:"implicit",
         silentCheckSsoRedirectUri: window.location.origin + 'silent-check-sso.html'
+      },
+      shouldAddToken: (request) => {
+        const { method, url } = request;
+
+        const isGetRequest = 'GET' === method.toUpperCase();
+        const acceptablePaths = ['/assets', '/clients/public'];
+        const isAcceptablePathMatch = acceptablePaths.some((path) =>
+          url.includes(path)
+        );
+
+        return !(isGetRequest && isAcceptablePathMatch);
       }
     });
 }

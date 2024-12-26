@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsServiceService } from "../../../services/students/students-service.service";
-import { NgIf, NgFor} from "@angular/common";
+import {NgIf, NgFor, NgClass} from "@angular/common";
 import { Router } from '@angular/router';
 import { Student } from "../../../interfaces/students/student";
 import {FormsModule} from "@angular/forms";
+import {KeycloakService} from "keycloak-angular";
+import {CoursesService} from "../../../services/courses/courses-service";
 
 
 @Component({
   selector: 'app-students-component',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule,],
+  imports: [NgIf, NgFor, FormsModule, NgClass,],
   templateUrl: './students-component.component.html',
   styleUrls: ['./students-component.component.css']
 })
@@ -22,12 +24,44 @@ export class StudentsComponent implements OnInit {
   selectedStudentToDelete: Student | null = null;
   showUpdateModal = false; // New variable to control update modal visibility
   updatedStudent: Student = {id:1,admNo:"",name:""}; // Store the student being updated
+  showCreateModal: boolean = false;
+  newStudent = {name:"",admNo:"",course:0}
+  courses:any
+  isClosing = false;
+  creatingStudent:boolean = false;
 
   // Pagination properties
   page = 0; // Current page index
-  size = 10; // Page size
+  size = 7; // Page size
   totalPages = 1; // Total number of pages
   totalElements = 0; // Total number of students
+
+
+  // Flag to enable/disable delete button based on roles
+  canDelete = false;
+
+
+  constructor(
+    private studentsService: StudentsServiceService,
+    private router: Router,
+    private coursesService: CoursesService,
+    private keycloakService: KeycloakService,  // Add KeycloakService
+  ) {
+
+    console.log("Hello constructor")
+    this.coursesService.getUnPaginatedCourses().subscribe({
+      next: (response:any) => {
+        this.courses = response;
+      },
+      error: (err) => {},
+    })
+  }
+
+  ngOnInit(): void {
+    this.fetchStudents(this.page, this.size);
+    const userRoles = this.keycloakService.getUserRoles();
+    this.canDelete = userRoles.includes('admin_role');
+  }
 
 
   // Method to open update modal
@@ -52,27 +86,19 @@ export class StudentsComponent implements OnInit {
 
   // Method to cancel update and close modal
   cancelUpdate() {
-    this.showUpdateModal = false;
-    this.updatedStudent =  {id:1,admNo:"",name:""};
+    this.showCreateModal = false;
   }
 
 
 
-  constructor(
-    private studentsService: StudentsServiceService,
-    private router: Router
-  ) {}
 
-  ngOnInit(): void {
-    this.fetchStudents(this.page, this.size);
-  }
 
   // Fetch students with pagination
   fetchStudents(page: number, size: number) {
     this.loading = true;
     this.studentsService.getStudents(page, size).subscribe({
       next: (response) => {
-        this.students = response.content;
+        this.students = response;
         this.totalPages = response.totalPages;
         this.totalElements = response.totalElements;
         this.loading = false; // Hide loader when data is fetched
@@ -86,8 +112,8 @@ export class StudentsComponent implements OnInit {
   }
 
   // Method to navigate to student details page
-  viewStudentDetails(id: number) {
-    this.router.navigate(['/students', id]);
+  viewStudentDetails(admNo: string) {
+    this.router.navigate(['/students', admNo]);
   }
 
   // Fetch a student by admNo
@@ -127,6 +153,46 @@ export class StudentsComponent implements OnInit {
     if (newPage >= 0 && newPage < this.totalPages) {
       this.page = newPage;
       this.fetchStudents(this.page, this.size);
+    }
+  }
+
+  // Open modal to create a book
+  openModal() {
+    this.showCreateModal = true;
+  }
+
+  closeModal() {
+    this.isClosing = true;  // Start the closing animation
+    setTimeout(() => {
+      this.showCreateModal = false;  // Hide the modal after the animation
+      this.isClosing = false;  // Reset the closing state
+      this.newStudent = { name: '', admNo: '',course: 0}; // Reset the form
+    }, 500);  // Match the duration of your closing animation (0.5s)
+  }
+
+  registerNewStudent() {
+    if(this.newStudent.name!=="" && this.newStudent.admNo!=="" && this.newStudent.course!==null){
+      this.creatingStudent = true;
+      this.newStudent = {
+        name:this.newStudent.name,
+        admNo:this.newStudent.admNo,
+        course:parseInt(String(this.newStudent.course), 10),
+      }
+
+      // Call the service to post the student data
+      this.studentsService.saveNewStudent(this.newStudent).subscribe({
+        next:(response:any)=>{
+        this.closeModal()
+        this.fetchStudents(0,10)
+
+        console.log('Student saved successfully', response);
+        this.router.navigate(['/students']);  // Navigate to the students list after successful save
+        this.creatingStudent = false;
+      },
+        error:(error:any)=>{
+          this.creatingStudent = false;
+        }
+      });
     }
   }
 }

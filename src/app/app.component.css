@@ -123,6 +123,27 @@
     margin-left: 0;
   }
 }
+
+/* Version info section at the bottom */
+.version-info-horizontal {
+  display: flex;
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  bottom: 130px; /* Adjust based on the logout button's height */
+  width: 100%;
+  text-align: center;
+}
+
+.version-info-horizontal span {
+  margin-right: 10px;
+}
+
+.version-info-horizontal span:last-child {
+  margin-right: 0;
+}
+
+/* Logout section styles */
 .logout-section {
   margin-top: auto; /* Pushes the logout button to the bottom */
 }
@@ -156,3 +177,7 @@
   transform: translateY(0); /* Button moves back to normal position */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+
+
+

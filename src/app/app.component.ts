@@ -1,63 +1,90 @@
-import { Component } from '@angular/core';
-import {KeycloakEventType, KeycloakService} from "keycloak-angular";
+import { Component, OnInit } from '@angular/core';
+import { KeycloakEventType, KeycloakService } from "keycloak-angular";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
-import {OnInit } from '@angular/core';
+import { faClipboard, faHome, faBook, faUsers, faGraduationCap, faSignOutAlt, } from '@fortawesome/free-solid-svg-icons';
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgClass, NgIf} from "@angular/common";
-import {BreadcrumbsComponent} from "./components/breadcrumbs/breadcrumbs.component";
+
 @Component({
   selector: 'app-component',
   standalone: true,
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   imports: [
-    NgIf,
     RouterOutlet,
+    FaIconComponent,
     RouterLink,
-    BreadcrumbsComponent,
     NgClass,
-  ],
-  styleUrl: './app.component.css'
+    NgIf
+  ]
 })
 export class AppComponent implements OnInit {
   sidebarVisible: boolean = true;
   isSubMenuVisible: boolean = true;
-
-
   isAuthenticated = false;
+  userRoles: string[] = [];
 
-  constructor(private keycloakService: KeycloakService, private router: Router) {}
+  // Font Awesome icons
+  faHome = faHome;
+  faStudents = faUsers;
+  faLibrary = faBook;
+  faCourses = faGraduationCap;
+  faLogout = faSignOutAlt;
+  faClipboard = faClipboard;
+
+  // Version information
+  libraryImage: string = '';
+  studentsImage: string = '';
+  uiImage: string = '';
+
+  constructor(
+    private keycloakService: KeycloakService,
+    private router: Router,
+  ) {}
 
   async ngOnInit() {
-    this.isAuthenticated = this.keycloakService.isLoggedIn();
+    // Check if the user is authenticated
+    this.isAuthenticated = await this.keycloakService.isLoggedIn();
 
-    console.log("Authenticated = " + this.isAuthenticated);
+    if (this.isAuthenticated) {
+      this.userRoles = this.keycloakService.getUserRoles();
+    }
 
+    // Fetch version details from window.config if available
+    // @ts-ignore
+    if (window['config']) {
+      // @ts-ignore
+      this.libraryImage = window['config'].LIBRARY_IMAGE;
+      // @ts-ignore
+      this.studentsImage = window['config'].STUDENTS_IMAGE;
+      // @ts-ignore
+      this.uiImage = window['config'].UI_IMAGE;
+    }
 
-    // Subscribe to keycloak events
+    // Subscribe to Keycloak events
     this.keycloakService.keycloakEvents$.subscribe({
       next: (event) => {
         if (event.type === KeycloakEventType.OnTokenExpired) {
-          // Refresh the token when it is about to expire
-          this.keycloakService.updateToken(20).then((refreshed) => {
-            if (refreshed) {
-              console.log('Token was successfully refreshed');
-            } else {
-              console.log('Token is still valid');
-            }
-          }).catch(() => {
-            console.error('Failed to refresh token');
+          this.keycloakService.updateToken(20).then(() => {
           });
         }
       }
     });
   }
 
+  // Check if the user has at least one of the specified roles
+  hasAnyRole(roles: string[]): boolean {
+    return roles.some(role => this.userRoles.includes(role));
+  }
+
+  // Login the user
   async login() {
     await this.keycloakService.login({
-      redirectUri: window.location.origin + '/landing'  // Redirect to protected component
+      redirectUri: window.location.origin + '/landing'
     });
   }
 
-  // Toggle the sidebar (for mobile)
+  // Toggle the sidebar
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
@@ -67,9 +94,8 @@ export class AppComponent implements OnInit {
     this.isSubMenuVisible = !this.isSubMenuVisible;
   }
 
-  //
+  // Logout the user
   logout() {
     this.keycloakService.logout(window.location.origin + "/");
   }
-
 }

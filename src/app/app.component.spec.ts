@@ -14,11 +14,29 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'angular-ui-app' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-ui-app');
-  });
+  // Subscribe to keycloak events
+  // this.keycloakService.keycloakEvents$.subscribe({
+  //   next: (event) => {
+  //     if (event.type === KeycloakEventType.OnTokenExpired) {
+  //       // Refresh the token when it is about to expire
+  //       this.keycloakService.updateToken(20).then((refreshed) => {
+  //         if (refreshed) {
+  //           console.log('Token was successfully refreshed');
+  //         } else {
+  //           console.log('Token is still valid');
+  //         }
+  //       }).catch(() => {
+  //         console.error('Failed to refresh token');
+  //       });
+  //     }
+  //   }
+  // });
+
+  // it(`should have the 'angular-ui-app' title`, () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   const app = fixture.componentInstance;
+  //   expect(app.title).toEqual('angular-ui-app');
+  // });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);

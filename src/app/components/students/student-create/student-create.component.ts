@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {StudentsServiceService} from "../../../services/students/students-service.service";
-
+import {CoursesService} from "../../../services/courses/courses-service";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {Student} from "../../../interfaces/students/student";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-student-create',
@@ -10,31 +12,42 @@ import {StudentsServiceService} from "../../../services/students/students-servic
   standalone: true,
   styleUrls: ['./student-create.component.css'],
   imports: [
-    ReactiveFormsModule
+    NgForOf,
+    NgClass,
+    FormsModule,
+    NgIf
   ],
   providers: [StudentsServiceService]  // Add S
 })
 export class StudentCreateComponent {
-  studentForm: FormGroup;
+  courses:any
+  newStudent = {name:"",admNo:"",course:""}
 
   constructor(
-    private fb: FormBuilder,
     private studentsService: StudentsServiceService,  // Inject the service
-    private router: Router
+    private router: Router,
+    private coursesService: CoursesService,
   ) {
-    this.studentForm = this.fb.group({
-      name: ['', Validators.required],
-      admNo: ['', Validators.required],
-      course: ['', Validators.required]
-    });
+
+    this.coursesService.getUnPaginatedCourses().subscribe({
+      next: (response:any) => {
+        console.log("Hello")
+        this.courses = response;
+      },
+      error: (err) => {},
+    })
   }
 
-  onSubmit() {
-    if (this.studentForm.valid) {
-      const studentData = this.studentForm.value;
+/*  registerNewStudent() {
+    if(this.newStudent.name!=="" && this.newStudent.admNo!=="" && this.newStudent.course!==""){
+      this.newStudent = {
+        name:this.newStudent.name,
+        admNo:this.newStudent.admNo,
+        course:this.newStudent.course,
+      }
 
       // Call the service to post the student data
-      this.studentsService.saveNewStudent(studentData).subscribe(
+      this.studentsService.saveNewStudent(this.newStudent).subscribe(
         (response:any) => {
           console.log('Student saved successfully', response);
           this.router.navigate(['/students']);  // Navigate to the students list after successful save
@@ -44,5 +57,5 @@ export class StudentCreateComponent {
         }
       );
     }
-  }
+  }*/
 }

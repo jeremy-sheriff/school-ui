@@ -2,13 +2,15 @@
   <div class="spinner"></div>
 </div>
 
-<!-- Button to open modal -->
 <div *ngIf="!loading">
-  <button class="create-book-btn" (click)="openModal()">Create Book</button>
-  <!-- Button to trigger the Issue Book modal -->
-  <button class="create-book-btn" (click)="openIssueModal()">Issue a Book</button>
+  <button class="create-book-btn button" (click)="openModal()">Create Book</button>
+  <button class="issue-book-btn button" (click)="openIssueModal()">Issue a Book</button>
+  <button class="return-book-btn button" (click)="openReturnModal()">Return a Book</button>
+  <a [routerLink]="['/library/borrowed-books']" class="styled-link">View Borrowed Books</a>
+<!--  <a [routerLink]="['/library/return-books']" class="styled-link-return">Return Book</a>-->
 
 </div>
+
 
 <div *ngIf="!loading && books.length > 0; else noData">
   <h2>Books List</h2>
@@ -41,7 +43,6 @@
 </div>
 
 <ng-template #noData>
-  <p *ngIf="!errorMessage">No books available.</p>
   <p *ngIf="errorMessage">{{ errorMessage }}</p>
 </ng-template>
 
@@ -94,12 +95,44 @@
         <!-- Book ISBN input field -->
         <label for="bookIsbn">Book ISBN</label>
         <input type="text" id="bookIsbn" [(ngModel)]="issueBookForm.bookIsbn" name="bookIsbn" required>
+
+        <!-- Book expectedDate input field -->
+        <label for="expectedDate">Expected Date</label>
+        <input type="date" id="expectedDate" [(ngModel)]="issueBookForm.expectedDate" [min]="minDate" name="expectedDate" required>
       </div>
 
       <!-- Modal actions -->
       <div class="modal-actions">
         <button type="submit" class="btn save-btn">Issue Book</button>
         <button type="button" class="btn cancel-btn" (click)="closeIssueModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Return Book Modal Structure -->
+<div *ngIf="showReturnModal" class="modal" [ngClass]="{'closing': isReturnClosing}">
+  <div class="modal-content">
+    <span class="close" (click)="closeReturnModal()">&times;</span>
+    <h2>Return A Book</h2>
+
+    <!-- Form for Returning a book -->
+    <form (ngSubmit)="returnBook()">
+      <div class="modal-body">
+        <!-- Admission Number input field -->
+        <label for="admNo">Admission Number</label>
+        <input type="text" id="admNoReturn" [(ngModel)]="returnBookForm.admNo" name="admNo" required>
+
+        <!-- Book ISBN input field -->
+        <label for="bookIsbn">Book ISBN</label>
+        <input type="text" id="bookIsbnReturn" [(ngModel)]="returnBookForm.bookIsbn" name="bookIsbn" required>
+      </div>
+
+      <!-- Modal actions -->
+      <div class="modal-actions">
+        <button type="submit" class="btn save-btn">Return Book</button>
+        <button type="button" class="btn cancel-btn" (click)="closeReturnModal()">Cancel</button>
       </div>
     </form>
   </div>

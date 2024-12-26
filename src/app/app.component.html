@@ -1,39 +1,61 @@
 <div class="container">
-  <!-- Hamburger icon - visible only when the user is authenticated -->
   <div class="hamburger" *ngIf="isAuthenticated" (click)="toggleSidebar()">
     &#9776;
   </div>
 
-  <!-- Sidebar - only visible when authenticated and sidebarVisible is true -->
   <aside class="sidebar" [ngClass]="{ 'sidebar-hidden': !sidebarVisible }" *ngIf="isAuthenticated">
     <nav class="nav">
       <ul>
-        <li><a routerLink="/">Home</a></li>
-
-        <!-- Students with Submenu -->
-        <li>
-          <a href="javascript:void(0)" (click)="toggleSubMenu()">Students</a>
-          <ul [ngClass]="{ 'submenu-visible': isSubMenuVisible }">
-            <li><a routerLink="students">All</a></li>
-            <li><a routerLink="students/create">Create</a></li>
-          </ul>
+        <!-- Example where the user needs either 'home_role', 'library_role', or 'course_role' -->
+        <li *ngIf="hasAnyRole(['admin_role', 'library_role', 'course_role'])">
+          <a routerLink="/">
+            <fa-icon [icon]="faHome"></fa-icon> Home
+          </a>
+        </li>
+        <!-- Check for 'library_role' role for Students section -->
+        <li *ngIf="hasAnyRole(['library_role'])">
+          <a routerLink="students">
+            <fa-icon [icon]="faStudents"></fa-icon> Students
+          </a>
+        </li>
+        <!-- Check for 'library_role' role for Library section -->
+        <li *ngIf="hasAnyRole(['library_role'])">
+          <a routerLink="library">
+            <fa-icon [icon]="faLibrary"></fa-icon> Library
+          </a>
+        </li>
+        <!-- Check for 'course_role' role for Courses section -->
+        <li *ngIf="hasAnyRole(['course_role'])">
+          <a routerLink="courses">
+            <fa-icon [icon]="faCourses"></fa-icon> Courses
+          </a>
         </li>
 
-        <li><a routerLink="library">Library</a></li>
+        <!-- Check for 'course_role' role for Courses section -->
+        <li *ngIf="hasAnyRole(['exam_role'])">
+          <a routerLink="exams">
+            <fa-icon [icon]="faClipboard"></fa-icon> Exams
+          </a>
+        </li>
       </ul>
     </nav>
 
-    <!-- Logout button -->
     <div class="logout-section">
-      <button *ngIf="isAuthenticated" class="logout-button" (click)="logout()">Logout</button>
+      <button *ngIf="isAuthenticated" class="logout-button" (click)="logout()">
+        <fa-icon [icon]="faLogout"></fa-icon> Logout
+      </button>
+    </div>
+
+    <div class="version-info-horizontal">
+      <span>LIB: {{ libraryImage }}</span>
+      <span>STD: {{ studentsImage }}</span>
+      <span>UI: {{ uiImage }}</span>
     </div>
   </aside>
 
-  <!-- Content Area -->
   <div class="content">
-    <app-breadcrumbs></app-breadcrumbs> <!-- Add Breadcrumbs Component -->
     <main class="main-content">
-      <router-outlet></router-outlet> <!-- This will load the routed components -->
+      <router-outlet></router-outlet>
     </main>
   </div>
 </div>

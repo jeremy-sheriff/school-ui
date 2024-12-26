@@ -2,7 +2,7 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #2c3e50;
+  background-color: #34495e;
   color: #ecf0f1;
   border-radius: 10px;
 }
@@ -22,6 +22,8 @@
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ddd;
+  background-color: #34495e;
+  color: #ecf0f1;
   border-radius: 5px;
 }
 
@@ -38,3 +40,8 @@
   background-color: #95a5a6;
   cursor: not-allowed;
 }
+
+
+
+
+

@@ -2,6 +2,10 @@
   <div class="spinner"></div>
 </div>
 
+<div *ngIf="!loading">
+<button class="create-book-btn button" (click)="openModal()">Create Student</button>
+</div>
+
 <div *ngIf="!loading && students.length > 0; else noData">
   <h2>Students List</h2>
   <table class="students-table">
@@ -19,9 +23,11 @@
       <td>{{ student.name }}</td>
       <td>{{ student.admNo }}</td>
       <td>
-        <button class="btn view-btn" (click)="viewStudentDetails(student.id)">View</button>
+        <button class="btn view-btn" (click)="viewStudentDetails(student.admNo)">View</button>
         <button class="btn update-btn" (click)="confirmUpdate(student)">Update</button>
-        <button class="btn delete-btn" (click)="confirmDelete(student)">Delete</button>
+        <!-- Conditionally hide the delete button if the user doesn't have the required role -->
+        <button class="btn delete-btn" (click)="confirmDelete(student)" *ngIf="canDelete">Delete</button>
+
       </td>
     </tr>
     </tbody>
@@ -36,8 +42,10 @@
 </div>
 
 <ng-template #noData>
-  <p *ngIf="!errorMessage">No students available.</p>
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <div *ngIf="!loading">
+    <p *ngIf="!errorMessage" >No students available.</p>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
 </ng-template>
 
 <!-- Confirmation Modal -->
@@ -53,27 +61,49 @@
 </div>
 
 
-<!-- Update Modal -->
-<div *ngIf="showUpdateModal" class="modal">
+
+
+<!-- Create Student Modal -->
+<div *ngIf="showCreateModal" class="modal" [ngClass]="{'closing': isClosing}">
   <div class="modal-content">
-    <h3>Update Student Details</h3>
-     Form to update student details
-<!--    <div class="modal-body">-->
-<!--      <label>-->
-<!--        Name:-->
-<!--        <input [(ngModel)]="selectedStudent?.name" />-->
-<!--      </label>-->
-<!--      <br />-->
-<!--      <label>-->
-<!--        Admission Number:-->
-<!--        <input [(ngModel)]="selectedStudent?.admNo" />-->
-<!--      </label>-->
-<!--      &lt;!&ndash; Add more fields as necessary &ndash;&gt;-->
-<!--    </div>-->
+    <h3>Create Student Details</h3>
+    <form (ngSubmit)="registerNewStudent()">
+      <div class="modal-body">
+
+        <label for="name">Name</label>
+        <input id="name" name="name" [(ngModel)]="newStudent.name" type="text" placeholder="Enter student name" />
+
+
+
+        <label for="admNo">Admission Number</label>
+        <input id="admNo" name="admNo" [(ngModel)]="newStudent.admNo" type="text" placeholder="Enter admission number" />
+
+
+      <!-- Course dropdown selection field -->
+        <label for="course">Course</label>
+        <select id="course" [(ngModel)]="newStudent.course" name="course" required>
+          <option *ngFor="let course of courses" [value]="course.id">
+            {{ course.name }}
+          </option>
+        </select>
+
+      </div>
+
+
+    <!-- Modal actions for Save and Cancel buttons -->
     <div class="modal-actions">
-      <button class="btn confirm-btn" (click)="saveUpdate()">Save</button>
-      <button class="btn cancel-btn" (click)="cancelUpdate()">Cancel</button>
+      <button
+        type="submit"
+        class="btn save-btn"
+        [disabled]="creatingStudent">
+        <span *ngIf="creatingStudent">Loading...</span>
+        <span *ngIf="!creatingStudent">Save</span>
+      </button>
+      <button class="btn cancel-btn" (click)="closeModal()">Cancel</button>
     </div>
+
+    </form>
   </div>
 </div>
+
 

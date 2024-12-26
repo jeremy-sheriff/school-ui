@@ -131,6 +131,7 @@ body {
 
 /* Modal input fields */
 .modal-body input[type="text"],
+.modal-body input[type="date"],
 .modal-body input[type="checkbox"] {
   width: 100%; /* Full width for text inputs */
   padding: 10px; /* Padding inside input fields */
@@ -288,3 +289,150 @@ body {
 .pagination-controls button:hover:not(:disabled) {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
+/* Styled link */
+.styled-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #3498db; /* Initial link color */
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #3498db; /* Add a border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+}
+
+/* Styled link */
+.styled-link-return {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #e67e22; /* Initial link color */
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #e67e22; /* Add a border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.styled-link-return:hover {
+  background-color: tomato; /* Blue background on hover */
+  color: white; /* White text on hover */
+}
+
+
+/* New Issue Button Styling */
+.issue-book-btn {
+  background: linear-gradient(135deg, #f39c12, #e74c3c); /* Gradient background */
+  border-radius: 12px;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  border: none; /* Remove border */
+}
+
+.issue-book-btn:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400); /* Darker gradient on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+  /*transform: translateY(-3px); !* Slight upward movement on hover *!*/
+}
+
+/* Styled link (kept for reference) */
+.styled-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #3498db; /* Initial link color */
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #3498db; /* Add a border */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+}
+
+
+
+/* General button styles for consistency */
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px; /* More rounded corners for a modern look */
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-right: 10px; /* Space between buttons */
+}
+
+/* Create Book Button */
+.create-book-btn {
+  background: linear-gradient(135deg, #27ae60, #2ecc71); /* Green gradient */
+  color: white;
+}
+
+.create-book-btn:hover {
+  background: linear-gradient(135deg, #2ecc71, #27ae60); /* Reverse gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+/* Issue Book Button */
+.issue-book-btn {
+  background: linear-gradient(135deg, #e74c3c, #c0392b); /* Red gradient */
+  color: white;
+}
+
+.return-book-btn {
+  background: linear-gradient(135deg, #e67e22, #d35400); /* Orange gradient */
+  color: white;
+}
+
+.issue-book-btn:hover {
+  background: linear-gradient(135deg, #c0392b, #e74c3c); /* Reverse gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.return-book-btn:hover {
+  background: linear-gradient(135deg, #c0392b, tomato); /* Reverse gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+/* View Book Logs Button */
+.styled-link {
+  background: transparent;
+  border: 2px solid #3498db; /* Blue border */
+  color: #3498db;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 30px; /* Rounded corners for consistency */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.styled-link:hover {
+  background-color: #3498db; /* Blue background on hover */
+  color: white; /* White text on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+

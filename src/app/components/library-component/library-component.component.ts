@@ -2,16 +2,18 @@ import {Component} from '@angular/core';
 import {LibraryService} from "../../services/library/library.service";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-library-component',
   standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    FormsModule,
-    NgClass
-  ],
+    imports: [
+        NgForOf,
+        NgIf,
+        FormsModule,
+        NgClass,
+        RouterLink
+    ],
   templateUrl: './library-component.component.html',
   styleUrls: ['./library-component.component.css'] // Fix typo from `styleUrl` to `styleUrls`
 })
@@ -23,8 +25,11 @@ export class LibraryComponentComponent {
   showModal: boolean = false; // State to control the modal visibility
   newBook = { bookTitle: '', bookAuthor: '' ,bookIsbn:''}; // New book model
 
-  showIssueModal = false;  // Controls the modal visibility for issuing a book
-  isIssueClosing = false;  // Controls the closing animation state for the issue modal
+  showIssueModal = false;
+  isIssueClosing = false;
+
+  showReturnModal = false;
+  isReturnClosing = false;
 
   page = 0; // Current page index
   size = 10; // Page size
@@ -33,10 +38,21 @@ export class LibraryComponentComponent {
 
   issueBookForm = {
     admNo: '',     // Admission Number
-    bookIsbn: ''   // Book ISBN
+    bookIsbn: '',   // Book ISBN
+    expectedDate: ''   // Book ISBN
   };
 
-  constructor(private libraryService: LibraryService) {}
+  returnBookForm = {
+    admNo: '',     // Admission Number
+    bookIsbn: '',   // Book ISBN
+  };
+
+  minDate: string;
+
+  constructor(private libraryService: LibraryService) {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+  }
 
   ngOnInit(): void {
     this.fetchBooks(this.page, this.size);
@@ -65,13 +81,29 @@ export class LibraryComponentComponent {
     this.isIssueClosing = false;  // Reset closing state
   }
 
+  // Method to open the Issue Book modal
+  openReturnModal() {
+    this.showReturnModal = true;
+    this.isReturnClosing = false;  // Reset closing state
+  }
+
   // Method to close the Issue Book modal with animation
   closeIssueModal() {
     this.isIssueClosing = true;
     setTimeout(() => {
       this.showIssueModal = false;
       this.isIssueClosing = false;
-      this.issueBookForm = { admNo: '', bookIsbn: '' };  // Reset form fields
+      this.issueBookForm = { admNo: '', bookIsbn: '' ,expectedDate:''};  // Reset form fields
+    }, 500);  // Match the duration of the closing animation (0.5s)
+  }
+
+  // Method to close the Issue Book modal with animation
+  closeReturnModal() {
+    this.isReturnClosing = true;
+    setTimeout(() => {
+      this.showReturnModal = false;
+      this.isReturnClosing = false;
+      this.returnBookForm = { admNo: '', bookIsbn: ''};  // Reset form fields
     }, 500);  // Match the duration of the closing animation (0.5s)
   }
 
@@ -90,6 +122,22 @@ export class LibraryComponentComponent {
         },
         error: (err) => {
           console.error('Error issuing book:', err);
+        }
+      });
+    }
+  }
+
+  returnBook() {
+    if (this.returnBookForm.admNo && this.returnBookForm.bookIsbn) {
+      console.log(this.returnBookForm);
+      // Call the service method to issue the book
+      this.libraryService.returnBook(this.returnBookForm).subscribe({
+        next: (data) => {
+          console.log('Book successfully returned:', data);
+          this.closeReturnModal();  // Close the modal after successful issuing
+        },
+        error: (err) => {
+          console.error('Error returning the book:', err);
         }
       });
     }

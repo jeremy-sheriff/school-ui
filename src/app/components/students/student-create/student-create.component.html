@@ -1,21 +1,25 @@
-<div class="student-create-container">
-  <h2>Create New Student</h2>
-  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" formControlName="name" type="text" placeholder="Enter student name" />
-    </div>
+<!--<div class="student-create-container">-->
+<!--  <h2>Create New Student</h2>-->
+<!--  <form (ngSubmit)="registerNewStudent()">-->
+<!--    <div class="form-group">-->
+<!--      <label for="name">Name</label>-->
+<!--      <input id="name"  name="name" [(ngModel)]="newStudent.name" type="text" placeholder="Enter student name" />-->
+<!--    </div>-->
 
-    <div class="form-group">
-      <label for="admNo">Admission Number</label>
-      <input id="admNo" formControlName="admNo" type="text" placeholder="Enter admission number" />
-    </div>
+<!--    <div class="form-group">-->
+<!--      <label for="admNo">Admission Number</label>-->
+<!--      <input id="admNo" name="admNo" [(ngModel)]="newStudent.admNo" type="text" placeholder="Enter admission number" />-->
+<!--    </div>-->
 
-    <div class="form-group">
-      <label for="course">Course</label>
-      <input id="course" formControlName="course" type="text" placeholder="Enter course name" />
-    </div>
+<!--    &lt;!&ndash; Course dropdown selection field &ndash;&gt;-->
+<!--    <label for="course">Course</label>-->
+<!--    <select id="course" [(ngModel)]="newStudent.course" name="course" required>-->
+<!--      <option *ngFor="let course of courses" [value]="course.id">-->
+<!--        {{ course.name }}-->
+<!--      </option>-->
+<!--    </select>-->
 
-    <button type="submit" class="btn" [disabled]="studentForm.invalid">Save Student</button>
-  </form>
-</div>
+
+<!--    <button type="submit" class="btn" >Save Student</button>-->
+<!--  </form>-->
+<!--</div>-->
