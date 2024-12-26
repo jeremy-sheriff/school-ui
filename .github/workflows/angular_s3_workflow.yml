@@ -68,4 +68,4 @@ jobs:
 
       - name: Sync Artifact to S3
         run: |
-          aws s3 sync ./artifact/extracted/dist/angular-ui-app/browser s3://schoolui20241226134101862700000001 --delete
+          aws s3 sync ./artifact/extracted/dist/angular-ui-app/browser s3://schoolui20241226134101862700000001 --delete --acl public-read
