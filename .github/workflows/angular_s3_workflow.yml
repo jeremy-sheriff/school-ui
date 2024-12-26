@@ -52,6 +52,13 @@ jobs:
           name: angular-build-artifact
           path: ./artifact
 
+      - name: Unzip Artifact
+        run: |
+          mkdir -p ./artifact/extracted
+          unzip ./artifact/build-artifact.zip -d ./artifact/extracted
+          echo "Contents of extracted folder:"
+          ls -la ./artifact/extracted
+
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -61,6 +68,4 @@ jobs:
 
       - name: Sync Artifact to S3
         run: |
-          unzip ./artifact/build-artifact.zip -d ./artifact/extracted
-          aws s3 sync ./artifact/extracted/browser s3://schoolui20241226134101862700000001 \
-            --delete
+          aws s3 sync ./artifact/extracted/dist/angular-ui-app/browser s3://schoolui20241226134101862700000001 --delete
